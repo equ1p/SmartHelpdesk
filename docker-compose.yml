@@ -1,0 +1,66 @@
+services:
+  raven1:
+    image: ravendb/ravendb:latest
+    container_name: raven1
+    ports:
+      - "8081:8080"
+      - "38881:38888"
+    environment:
+      - RAVEN_License_Eula_Accepted=true
+      - RAVEN_Setup_Mode=None
+      - RAVEN_ARGS=--Security.UnsecuredAccessAllowed=PublicNetwork
+      - RAVEN_ServerUrl=http://0.0.0.0:8080
+      - RAVEN_PublicServerUrl=http://localhost:8081
+      - RAVEN_ServerUrl_Tcp=tcp://0.0.0.0:38888
+      - RAVEN_PublicServerUrl_Tcp=tcp://localhost:38881
+    volumes:
+      - raven1_data:/opt/RavenDB/Server/RavenData
+    networks:
+      - ravendb
+  
+  raven2:
+    image: ravendb/ravendb:latest
+    container_name: raven2
+    ports:
+      - "8082:8080"
+      - "38882:38888"
+    environment:
+      - RAVEN_License_Eula_Accepted=true
+      - RAVEN_Setup_Mode=None
+      - RAVEN_ARGS=--Security.UnsecuredAccessAllowed=PublicNetwork
+      - RAVEN_ServerUrl=http://0.0.0.0:8080
+      - RAVEN_PublicServerUrl=http://localhost:8082
+      - RAVEN_ServerUrl_Tcp=tcp://0.0.0.0:38888
+      - RAVEN_PublicServerUrl_Tcp=tcp://localhost:38882
+    volumes:
+      - raven2_data:/opt/RavenDB/Server/RavenData
+    networks:
+      - ravendb
+
+  raven3:
+    image: ravendb/ravendb:latest
+    container_name: raven3
+    ports:
+      - "8083:8080"
+      - "38883:38888"
+    environment:
+      - RAVEN_License_Eula_Accepted=true
+      - RAVEN_Setup_Mode=None
+      - RAVEN_ARGS=--Security.UnsecuredAccessAllowed=PublicNetwork
+      - RAVEN_ServerUrl=http://0.0.0.0:8080
+      - RAVEN_PublicServerUrl=http://localhost:8083
+      - RAVEN_ServerUrl_Tcp=tcp://0.0.0.0:38888
+      - RAVEN_PublicServerUrl_Tcp=tcp://localhost:38883
+    volumes:
+      - raven3_data:/opt/RavenDB/Server/RavenData
+    networks:
+      - ravendb
+
+volumes:
+  raven1_data:
+  raven2_data:
+  raven3_data:
+
+networks:
+  ravendb:
+    driver: bridge
