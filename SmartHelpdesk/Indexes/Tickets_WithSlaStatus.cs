@@ -1,4 +1,4 @@
-﻿using Raven.Client.Documents.Indexes;
+using Raven.Client.Documents.Indexes;
 using SmartHelpdesk.Models;
 
 namespace SmartHelpdesk.Indexes
@@ -7,23 +7,20 @@ namespace SmartHelpdesk.Indexes
     {
         public class Result
         {
-            public string Id { get; set; }
+            public string Id { get; set; } = string.Empty;
             public string Title { get; set; } = string.Empty;
             public TicketStatus Status { get; set; }
             public TicketPriority Priority { get; set; }
             public string ClientId { get; set; } = string.Empty;
             public string? OperatorId { get; set; }
             public DateTime CreatedAt { get; set; }
-
-            public double ResolutionHours { get; set; }
-            public bool IsSlaViolated { get; set; }
+            public DateTime? ClosedAt { get; set; }
+            public int SlaHours { get; set; }
         }
         
         public Tickets_WithSlaStatus()
         {
             Map = tickets => from t in tickets
-                             let endTime = t.ClosedAt ?? DateTime.UtcNow
-                             let hours = (endTime - t.CreatedAt).TotalHours
                              select new Result
                              {
                                  Id = t.Id,
@@ -33,9 +30,8 @@ namespace SmartHelpdesk.Indexes
                                  ClientId = t.ClientId,
                                  OperatorId = t.OperatorId,
                                  CreatedAt = t.CreatedAt,
-
-                                 ResolutionHours = hours,
-                                 IsSlaViolated = hours > t.SlaHours && t.Status != TicketStatus.Closed
+                                 ClosedAt = t.ClosedAt,
+                                 SlaHours = t.SlaHours
                              };
             StoreAllFields(FieldStorage.Yes);
         }

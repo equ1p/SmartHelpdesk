@@ -19,7 +19,7 @@ namespace SmartHelpdesk.Indexes
                                   Vector = CreateVector(a.VectorEmbedding)
                               };
 
-            SearchEngineType = SearchEngineType.Corax;
+            SearchEngineType = Raven.Client.Documents.Indexes.SearchEngineType.Corax;
         }
     }
 }
