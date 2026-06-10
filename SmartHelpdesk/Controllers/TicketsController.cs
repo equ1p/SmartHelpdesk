@@ -53,7 +53,7 @@ namespace SmartHelpdesk.Controllers
             });
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{*id}")]
         public async Task<IActionResult> GetById(string id)
         {
             using var session = _store.OpenAsyncSession();
@@ -109,7 +109,7 @@ namespace SmartHelpdesk.Controllers
             return CreatedAtAction(nameof(GetById), new { id = ticket.Id }, ticket);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{*id}")]
         public async Task<IActionResult> Update(string id, [FromBody] UpdateTicketRequest request)
         {
             using var session = _store.OpenAsyncSession();

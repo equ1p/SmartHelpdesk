@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Operations;
 using Raven.Client.Documents.Queries;
@@ -26,7 +26,7 @@ namespace SmartHelpdesk.Controllers
                 {
                     Query = @"
                         from Tickets
-                        where Status != 'Closed' && CreatedAt < $cutoffDate
+                        where Status != 'Closed' and CreatedAt < $cutoffDate
                         update{
                             this.Status = 'Closed';
                             this.ClosedAt = new Date().toISOString();

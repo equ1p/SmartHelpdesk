@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Raven.Client.Documents;
 using SmartHelpdesk.Indexes;
 
@@ -15,7 +15,7 @@ namespace SmartHelpdesk.Controllers
             _store = store;
         }
 
-        [HttpGet]
+        [HttpGet("operators")]
         public async Task<IActionResult> GetOperatorPerformance()
         {
             using var session = _store.OpenAsyncSession();

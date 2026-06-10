@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Raven.Client.Documents;
 using Raven.Client.Documents.Session;
 using Raven.Client.Documents.Linq;
@@ -43,7 +43,7 @@ namespace SmartHelpdesk.Controllers
             });
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{*id}")]
         public async Task<IActionResult> GetById(string id)
         {
             using var session = _store.OpenAsyncSession();
@@ -75,7 +75,7 @@ namespace SmartHelpdesk.Controllers
             return CreatedAtAction(nameof(GetById), new { id = article.Id }, article);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{*id}")]
         public async Task<IActionResult> Update(string id, [FromBody] UpdateArticleRequest request)
         {
             using var session = _store.OpenAsyncSession();
@@ -93,7 +93,7 @@ namespace SmartHelpdesk.Controllers
             return Ok(article);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{*id}")]
         public async Task<IActionResult> Delete(string id)
         {
             using var session = _store.OpenAsyncSession();
